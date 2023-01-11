@@ -30,7 +30,8 @@ const register = expressAsyncHandler(async (req, res, next) => {
             if (user) {
                 res.status(201).json({
                     _id: user._id,
-
+                    name: user.name,
+                    email: user.email,
                     token: generateToken(user._id),
                 });
             } else {
@@ -51,8 +52,8 @@ const Login = expressAsyncHandler(async (req, res, next) => {
         if (user && (await user.matchPassword(password))) {
             res.json({
                 _id: user._id,
-                // name: user.name,
-                // email: user.email,
+                name: user.name,
+                email: user.email,
                 token: generateToken(user._id),
                 // createdAt: user.createdAt,
             });
@@ -96,10 +97,10 @@ You must change password at next signin
                     console.log('Email sent: ' + info.response);
                 }
             });
-            res.json({ message: "Check your email inbox to get new password." })
+            return res.status(200).json({ message: "Check your email inbox to get new password." })
         }
         else {
-            res.json({ message: "User not exists" })
+            return res.status(400).json({ message: "User not exists" })
         }
     } catch (error) {
         next(error);

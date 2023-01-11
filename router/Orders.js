@@ -9,6 +9,6 @@ router.get("/:_id",protect,getById)
 router.put("/:_id",protect,updateOrder)
 router.put("/:_id/status",updateStatus)
 router.delete("/:_id",protect,deleteOrderById)
-router.post("/findByStatus",protect,findByStatus)
+router.post("/findByStatus",findByStatus)
 router.get('/',getALLOrder)
 export default router

@@ -4,8 +4,7 @@ import expressAsyncHandler from "express-async-handler";
 
 const createReport = expressAsyncHandler(async (req, res, next) => {
     try {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-
+    
         const { reportOrder } = req.body;
 
         const report = new Report({
@@ -22,7 +21,6 @@ const createReport = expressAsyncHandler(async (req, res, next) => {
 
 const getAllReport = expressAsyncHandler(async (req, res) => {
     try {
-        res.setHeader('Access-Control-Allow-Origin', '*');
 
         const report = await Report.find({})
         res.json(report)
@@ -33,7 +31,6 @@ const getAllReport = expressAsyncHandler(async (req, res) => {
 
 const getByIDUser = expressAsyncHandler(async (req, res, next) => {
     try {
-        res.setHeader('Access-Control-Allow-Origin', '*');
 
         const report = await Report.find({ user: req.user._id }).sort({ _id: -1 });
         if (report) {
@@ -51,10 +48,8 @@ const getByIDUser = expressAsyncHandler(async (req, res, next) => {
 
 const getByID = expressAsyncHandler(async (req, res, next) => {
     try {
-        res.setHeader('Access-Control-Allow-Origin', '*');
 
         const report = await Report.findById(req.params._id);
-        // console.log(report);
         if (report) {
             res.status(200).json(report);
         }
@@ -68,7 +63,6 @@ const getByID = expressAsyncHandler(async (req, res, next) => {
 })
 
 const updateReport = expressAsyncHandler(async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
 
     const { repmessage, status } = req.body;
     const report = await Report.findById(req.params._id);

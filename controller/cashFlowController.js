@@ -34,7 +34,7 @@ const getByUser = expressAsyncHandler(async (req, res, next) => {
 })
 const getAll = expressAsyncHandler(async (req, res, next) => {
     try {
-        const cashFlow = await CashFlow.find({}).sort({ _id: -1 });
+        const cashFlow = await CashFlow.find({}).sort({ _id: -1});
         res.status(200).json(cashFlow);
 
     } catch (error) {

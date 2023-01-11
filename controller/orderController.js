@@ -77,7 +77,7 @@ const getByUser = expressAsyncHandler(async (req, res) => {
         async function updateOrder(id) {
             await axios.post(`http://localhost:5000/api/orders/${id}/status`)
         }
-        order.map((items) => items.orderStatus !== "Completed" && items.orderStatus === "Canceled" ?  updateOrder(items._id) : null)
+        order.map((items) => items.orderStatus !== "Completed" && items.orderStatus === "Canceled" ? updateOrder(items._id) : null)
 
         if (order) { res.status(200).json(order) }
     } catch (error) {
@@ -183,11 +183,36 @@ const getALLOrder = expressAsyncHandler(async (req, res) => {
 
 const findByStatus = expressAsyncHandler(async (req, res, next) => {
     try {
-        const { Status } = req.body
-        const order = await Order.find({ orderStatus: Status }).sort({})
-        if (order) {
-            return res.json(order)
+        const { Status, id, IDorder, link, service } = req.body
+
+        console.log(IDorder)
+
+        if (IDorder !== "" && IDorder !== undefined) {
+            const order = await Order.find({ "orderItems.order": IDorder, user: id }).sort({})
+            return res.status(200).json(order)
+
         }
+        if (link !== "" && link !== undefined) {
+            const order = await Order.find({ "orderItems.link": link, user: id }).sort({})
+            return res.status(200).json(order)
+
+        }
+        // console.log(link)
+        if (service !== "" && service !== undefined) {
+            const order = await Order.find({ "orderItems.service": service, user: id }).sort({})
+            return res.status(200).json(order)
+
+        }
+        if (Status !== "ALL" && Status !== "") {
+            const order = await Order.find({ orderStatus: Status, user: id }).sort({})
+
+            return res.status(200).json(order)
+        }
+        if (Status === "ALL") {
+            const order = await Order.find({ user: id }).sort({})
+            return res.status(200).json(order)
+        }
+
     } catch (error) {
         next(error)
     }
