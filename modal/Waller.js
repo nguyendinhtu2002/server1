@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const walletSchema = mongoose.Schema(
     {
@@ -7,10 +7,10 @@ const walletSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: "User",
-          },
+        },
     },
     { timestamps: true }
 );
 const Waller = mongoose.model("Waller", walletSchema);
 
-export default Waller
+module.exports = Waller

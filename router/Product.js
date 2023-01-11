@@ -1,15 +1,15 @@
-import express from "express"
+const express = require("express")
 const router = express.Router()
-import {addProduct, getALL,getProductById,getUpView} from "../controller/productController.js"
-import { protect } from "../Middleware/AuthMiddleware.js"
+const { addProduct, getALL, getProductById, getUpView } = require("../controller/productController.js")
+const { protect } = require("../Middleware/AuthMiddleware.js")
 
 
 
-router.get("/",getALL)
-router.get("/:service",getProductById)
-router.post('/',addProduct)
-router.post('/upview',getUpView)
+router.get("/", getALL)
+router.get("/:service", getProductById)
+router.post('/', addProduct)
+router.post('/upview', getUpView)
 // router.post("/login",Login)
 
 
-export default router
+module.exports = router

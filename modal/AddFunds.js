@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const adsFundsSchema = mongoose.Schema({
     user: {
@@ -24,4 +24,4 @@ const adsFundsSchema = mongoose.Schema({
 })
 
 const AddFunds = mongoose.model('AddFunds', adsFundsSchema)
-export default AddFunds;
+module.exports = AddFunds;

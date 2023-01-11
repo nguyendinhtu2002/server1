@@ -1,5 +1,5 @@
-import AddFunds from "../modal/AddFunds.js";
-import expressAsyncHandler from "express-async-handler";
+const AddFunds = require("../modal/AddFunds.js");
+const expressAsyncHandler = require("express-async-handler");
 
 
 //Create ORder
@@ -57,4 +57,4 @@ const getByUser = expressAsyncHandler(async (req, res) => {
 //     }
 // })
 
-export { createAddFunds, getAddFundsAll, getByUser }
+module.exports = { createAddFunds, getAddFundsAll, getByUser }

@@ -1,10 +1,10 @@
-import Report from "../modal/Report.js";
-import expressAsyncHandler from "express-async-handler";
+const Report = require("../modal/Report.js");
+const expressAsyncHandler = require("express-async-handler");
 
 
 const createReport = expressAsyncHandler(async (req, res, next) => {
     try {
-    
+
         const { reportOrder } = req.body;
 
         const report = new Report({
@@ -74,7 +74,7 @@ const updateReport = expressAsyncHandler(async (req, res) => {
         report.reportOrder[0].status = status
         report.reportOrder[0].order = report.reportOrder[0].order
         report.reportOrder[0].Request = report.reportOrder[0].Request
-       
+
         const updateReport = await report.save();
         res.json(updateReport);
     } else {
@@ -83,4 +83,4 @@ const updateReport = expressAsyncHandler(async (req, res) => {
     }
 })
 
-export { createReport, getAllReport, getByIDUser, getByID, updateReport }
+module.exports = { createReport, getAllReport, getByIDUser, getByID, updateReport }

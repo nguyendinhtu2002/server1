@@ -1,7 +1,7 @@
-import express from "express";
-import asyncHandler from "express-async-handler";
-import Product from "../modal/Product.js";
-import axios from "axios";
+const express = require("express");
+const asyncHandler = require("express-async-handler");
+const Product = require("../modal/Product.js");
+const axios = require("axios");
 const getALL = asyncHandler(async (req, res) => {
     const products = await Product.find({})
     res.json(products)
@@ -68,4 +68,4 @@ const addProduct = asyncHandler(async (req, res) => {
 
 
 
-export { getALL, getProductById, addProduct, getUpView } 
+module.exports = { getALL, getProductById, addProduct, getUpView } 

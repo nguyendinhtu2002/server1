@@ -1,16 +1,16 @@
-import express from "express"
-import dotenv from "dotenv";
-import cors from "cors"
-import userRouter from "./router/User.js"
-import connectDatabase from "./config/MongoDb.js";
-import orderRouter from "./router/Orders.js"
-import productRouter from "./router/Product.js"
-import reportRouter from "./router/Report.js"
-import CashFlowRouter from "./router/CashFLow.js"
-import AddFundsRouter from "./router/AddFunds.js"
-import WallerRouter from "./router/Waller.js"
-import PublicRouter from "./router/Public.js"
-import ImportData from "./DataImport.js"
+const express = require("express")
+const dotenv = require("dotenv");
+const cors = require("cors")
+const userRouter = require("./router/User.js")
+const connectDatabase = require("./config/MongoDb.js");
+const orderRouter = require("./router/Orders.js")
+const productRouter = require("./router/Product.js")
+const reportRouter = require("./router/Report.js")
+const CashFlowRouter = require("./router/CashFLow.js")
+const AddFundsRouter = require("./router/AddFunds.js")
+const WallerRouter = require("./router/Waller.js")
+const PublicRouter = require("./router/Public.js")
+const ImportData = require("./DataImport.js")
 
 dotenv.config();
 connectDatabase();

@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken";
-import asyncHandler from "express-async-handler";
-import User from "../modal/userModal.js";
+const jwt = require("jsonwebtoken");
+const asyncHandler = require("express-async-handler");
+const User = require("../modal/userModal.js");
 
 const protect = asyncHandler(async (req, res, next) => {
   let token;
@@ -16,11 +16,11 @@ const protect = asyncHandler(async (req, res, next) => {
       req.user = await User.findById(decoded.id).select("-password");
       next();
     } catch (error) {
-      res.status(401).json({"message":"Not authorized, token failed"});
+      res.status(401).json({ "message": "Not authorized, token failed" });
     }
   }
   if (!token) {
-    res.status(401).json({"message":"Not authorized, no token"})
+    res.status(401).json({ "message": "Not authorized, no token" })
   }
 });
 
@@ -32,4 +32,4 @@ const admin = (req, res, next) => {
     throw new Error("Not authorized as an Admin");
   }
 };
-export { protect, admin };
+module.exports = { protect, admin };

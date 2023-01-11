@@ -1,5 +1,5 @@
-import CashFlow from "../modal/CashFlow.js";
-import expressAsyncHandler from "express-async-handler";
+const CashFlow = require("../modal/CashFlow.js");
+const expressAsyncHandler = require("express-async-handler");
 
 
 
@@ -34,7 +34,7 @@ const getByUser = expressAsyncHandler(async (req, res, next) => {
 })
 const getAll = expressAsyncHandler(async (req, res, next) => {
     try {
-        const cashFlow = await CashFlow.find({}).sort({ _id: -1});
+        const cashFlow = await CashFlow.find({}).sort({ _id: -1 });
         res.status(200).json(cashFlow);
 
     } catch (error) {
@@ -64,4 +64,4 @@ const deleteById = expressAsyncHandler(async (req, res, next) => {
         next(error);
     }
 })
-export { createCashFlow, getByUser, getAll, getByUserDeposit,deleteById }
+module.exports = { createCashFlow, getByUser, getAll, getByUserDeposit, deleteById }

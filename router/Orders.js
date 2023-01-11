@@ -1,7 +1,7 @@
-import express from "express"
+const express =require( "express")
 const router = express.Router()
-import {createOrder,getByUser,getById,updateOrder, deleteOrderById,getALLOrder,updateStatus,findByStatus} from "../controller/orderController.js"
-import {admin,protect} from "../Middleware/AuthMiddleware.js"
+const {createOrder,getByUser,getById,updateOrder, deleteOrderById,getALLOrder,updateStatus,findByStatus} =require( "../controller/orderController.js")
+const {admin,protect} =require( "../Middleware/AuthMiddleware.js")
 
 router.post("/",protect,createOrder)
 router.get("/:_id/getByUser",protect,getByUser)
@@ -11,4 +11,5 @@ router.put("/:_id/status",updateStatus)
 router.delete("/:_id",protect,deleteOrderById)
 router.post("/findByStatus",findByStatus)
 router.get('/',getALLOrder)
-export default router
+
+module.exports  = router

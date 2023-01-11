@@ -4,13 +4,13 @@
 // const expressAsyncHandler = require('express-async-handler');
 // const {  generateToken } = require('../utils/generateToken');
 
-import express from 'express';
-import User from "../modal/userModal.js";
-import bcrypt from "bcryptjs";
-import expressAsyncHandler from "express-async-handler";
-import { generateToken, refreshToken } from "../utils/generateToken.js";
-import randomstring from "randomstring"
-import nodemailer from "nodemailer"
+const express = require('express');
+const User = require("../modal/userModal.js");
+const bcrypt = require("bcryptjs");
+const expressAsyncHandler = require("express-async-handler");
+const { generateToken, refreshToken } = require("../utils/generateToken.js");
+const randomstring = require("randomstring")
+const nodemailer = require("nodemailer")
 const register = expressAsyncHandler(async (req, res, next) => {
     try {
 
@@ -295,4 +295,4 @@ const ChangeApiKey = expressAsyncHandler(async (req, res, next) => {
         next(error);
     }
 })
-export { register, Login, updateProfile, getUserById, updateMoney, getAllUsers, updateEmail, deleteUserById, updateUser, LoginAdmin, getApiKey, ChangeApiKey, forgotPassword } 
+module.exports = { register, Login, updateProfile, getUserById, updateMoney, getAllUsers, updateEmail, deleteUserById, updateUser, LoginAdmin, getApiKey, ChangeApiKey, forgotPassword } 

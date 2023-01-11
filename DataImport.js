@@ -1,7 +1,7 @@
-import express from 'express';
-import Product from "./modal/Product.js"
-import products from "./data/Product.js";
-import asyncHandler from "express-async-handler";
+const express = require('express');
+const Product = require("./modal/Product.js")
+const products = require("./data/Product.js");
+const asyncHandler = require("express-async-handler");
 const ImportData = express.Router();
 
 
@@ -14,4 +14,4 @@ ImportData.post(
     })
 );
 
-export default ImportData;
+module.exports = ImportData;

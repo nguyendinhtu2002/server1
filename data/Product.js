@@ -154,4 +154,4 @@ const products = [
         "refill": false
     }
 ]
-export default products;
+module.exports = products;

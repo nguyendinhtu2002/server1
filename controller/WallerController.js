@@ -1,5 +1,5 @@
-import Waller from "../modal/Waller.js";
-import expressAsyncHandler from "express-async-handler";
+const Waller = require("../modal/Waller.js");
+const expressAsyncHandler = require("express-async-handler");
 
 const validateUserWallet = expressAsyncHandler(async (req, res, next) => {
     try {
@@ -52,7 +52,7 @@ const getAll = expressAsyncHandler(async (req, res, next) => {
     try {
 
         const wallet = await Waller.find();
-        
+
         res.status(200).json(wallet);
 
     } catch (error) {
@@ -72,4 +72,4 @@ const deleteWallet = expressAsyncHandler(async (req, res, next) => {
         next(error);
     }
 })
-export { validateUserWallet, updateWaller, getMoneyByIdUser,getAll,deleteWallet }
+module.exports = { validateUserWallet, updateWaller, getMoneyByIdUser, getAll, deleteWallet }

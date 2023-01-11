@@ -1,8 +1,8 @@
-import express from "express"
+const express  = require( "express")
 const router = express.Router()
 
-import apiPublic from "../public/publicController.js"
+const apiPublic  = require( "../public/publicController.js")
 
 router.post('/',apiPublic)
 
-export default router
+module.exports = router

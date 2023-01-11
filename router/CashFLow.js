@@ -1,11 +1,11 @@
-import express from "express"
+const express = require("express")
 const router = express.Router()
-import { createCashFlow, deleteById, getAll, getByUser,getByUserDeposit } from "../controller/cashFlowController.js"
-import { protect } from "../Middleware/AuthMiddleware.js"
+const { createCashFlow, deleteById, getAll, getByUser, getByUserDeposit } = require("../controller/cashFlowController.js")
+const { protect } = require("../Middleware/AuthMiddleware.js")
 
 router.post('/', protect, createCashFlow)
 router.get('/', protect, getByUser)
 router.get('/getByUserDeposit', protect, getByUserDeposit)
-router.get('/all',getAll)
-router.delete('/:_id',deleteById)
-export default router
+router.get('/all', getAll)
+router.delete('/:_id', deleteById)
+module.exports = router

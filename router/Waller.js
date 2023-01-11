@@ -1,12 +1,12 @@
-import express from "express"
+const express = require("express")
 const router = express.Router()
-import {validateUserWallet,updateWaller,getMoneyByIdUser,getAll, deleteWallet} from "../controller/WallerController.js"
-import {protect} from "../Middleware/AuthMiddleware.js"
+const { validateUserWallet, updateWaller, getMoneyByIdUser, getAll, deleteWallet } = require("../controller/WallerController.js")
+const { protect } = require("../Middleware/AuthMiddleware.js")
 
 
-router.post('/:user',validateUserWallet)
-router.put('/:user',updateWaller)
-router.get('/:user/balance',protect,getMoneyByIdUser)
-router.get('/balance',getAll)
-router.delete("/:_id",protect,deleteWallet)
-export default router
+router.post('/:user', validateUserWallet)
+router.put('/:user', updateWaller)
+router.get('/:user/balance', protect, getMoneyByIdUser)
+router.get('/balance', getAll)
+router.delete("/:_id", protect, deleteWallet)
+module.exports = router

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const cashFlowSchema = mongoose.Schema({
     user: {
@@ -24,6 +24,6 @@ const cashFlowSchema = mongoose.Schema({
     timestamps: true,
 })
 
-const CashFlow = mongoose.model('CashFlow',cashFlowSchema)
+const CashFlow = mongoose.model('CashFlow', cashFlowSchema)
 
-export default CashFlow
+module.exports = CashFlow

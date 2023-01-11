@@ -1,10 +1,10 @@
-import User from "../modal/userModal.js";
-import Product from "../modal/Product.js";
-import Order from "../modal/Order.js";
-import CashFlow from "../modal/CashFlow.js";
-import Waller from "../modal/Waller.js";
-import expressAsyncHandler from "express-async-handler";
-import axios from "axios";
+const User = require("../modal/userModal.js");
+const Product = require("../modal/Product.js");
+const Order = require("../modal/Order.js");
+const CashFlow = require("../modal/CashFlow.js");
+const Waller = require("../modal/Waller.js");
+const expressAsyncHandler = require("express-async-handler");
+const axios = require("axios");
 const apiPublic = expressAsyncHandler(async (req, res, next) => {
     const config = {
         headers: {
@@ -70,11 +70,11 @@ const apiPublic = expressAsyncHandler(async (req, res, next) => {
                                             { new: true }
                                         );
                                         const cashFlow = await CashFlow.create({
-                                            order:123,
-                                            spending:123,
+                                            order: 123,
+                                            spending: 123,
                                             user: userId,
-                                            remainingMoney:123,
-                                            type:"Add order"
+                                            remainingMoney: 123,
+                                            type: "Add order"
                                         })
                                         const createCashFlow = await cashFlow.save();
                                         const createOrder = await order.save();
@@ -139,4 +139,4 @@ const apiPublic = expressAsyncHandler(async (req, res, next) => {
     }
 })
 
-export default apiPublic
+module.exports = apiPublic

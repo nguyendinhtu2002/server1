@@ -1,7 +1,7 @@
-import Order from "../modal/Order.js";
-import expressAsyncHandler from "express-async-handler";
-import axios from "axios"
-import cron from 'node-cron';
+const Order = require("../modal/Order.js");
+const expressAsyncHandler = require("express-async-handler");
+const axios = require("axios")
+const cron = require('node-cron');
 //Create ORder
 const createOrder = expressAsyncHandler(async (req, res, next) => {
     try {
@@ -217,4 +217,4 @@ const findByStatus = expressAsyncHandler(async (req, res, next) => {
         next(error)
     }
 })
-export { createOrder, getByUser, getById, updateOrder, deleteOrderById, getALLOrder, updateStatus, findByStatus }
+module.exports = { createOrder, getByUser, getById, updateOrder, deleteOrderById, getALLOrder, updateStatus, findByStatus }

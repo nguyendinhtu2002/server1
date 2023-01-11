@@ -1,11 +1,11 @@
-import express from "express"
+const express  = require( "express")
 const router = express.Router()
-import {createReport,getAllReport,getByIDUser,getByID,updateReport} from "../controller/reportController.js"
-import {protect} from "../Middleware/AuthMiddleware.js"
+const {createReport,getAllReport,getByIDUser,getByID,updateReport}  = require( "../controller/reportController.js")
+const {protect}  = require( "../Middleware/AuthMiddleware.js")
 
 router.post('/',protect,createReport)
 router.get('/',getAllReport)
 router.get('/getByUser',protect,getByIDUser)
 router.get('/:_id',protect,getByID)
 router.put('/:_id',protect,updateReport)
-export default router
+module.exports  = router
