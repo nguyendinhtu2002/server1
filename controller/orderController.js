@@ -19,32 +19,31 @@ const createOrder = expressAsyncHandler(async (req, res, next) => {
             start_count
         } = req.body;
 
-        // const params = new URLSearchParams()
+        const params = new URLSearchParams()
 
-        // params.append('key', process.env.KEY)
-        // params.append('action', 'add')
-        // params.append('service', service)
-        // params.append('link', link)
-        // params.append('quantity', quanlity)
-        // // params.append('search', search)
-        // params.append('search', keyword)
+        params.append('key', process.env.KEY)
+        params.append('action', 'add')
+        params.append('service', service)
+        params.append('link', link)
+        params.append('quantity', quanlity)
+        // params.append('search', search)
+        params.append('search', keyword)
 
-        // const config = {
-        //     headers: {
-        //         "Content-Type": "application/x-www-form-urlencoded",
-        //     },
-        // };
-        // const { data } = await axios.post(`https://upview.us/api/v2`, params, config);
-        // console.log(data)
+        const config = {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        };
+        const { data } = await axios.post(`https://upview.us/api/v2`, params, config);
         if (name && name.length === 0) {
             res.status(400);
             throw new Error("No order items");
 
         } else {
-            if (true) {
+            if (data.error === undefined) {
                 const order = new Order({
                     orderItems: {
-                        order: 123,
+                        order: data.order,
                         link,
                         quanlity,
                         service,
@@ -58,10 +57,10 @@ const createOrder = expressAsyncHandler(async (req, res, next) => {
                     start_count
                 });
                 const createOrder = await order.save();
-                res.status(201).json(createOrder);
+                return res.status(201).json(createOrder);
             }
             else {
-                res.status(500).json({ "error": "Error" });
+                return res.status(500).json({ "error": "Error" });
             }
         }
     } catch (error) {

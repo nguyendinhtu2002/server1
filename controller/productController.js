@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const Product = require("../modal/Product.js");
 const axios = require("axios");
 const getALL = asyncHandler(async (req, res) => {
+    // res.header("Access-Control-Allow-Origin", "azview.us");
     const products = await Product.find({})
     res.json(products)
 })
