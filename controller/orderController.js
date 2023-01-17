@@ -73,10 +73,10 @@ const getByUser = expressAsyncHandler(async (req, res) => {
     try {
         // const { orders } = req.body
         const order = await Order.find({ user: req.params._id }).sort({ _id: -1 });
-        async function updateOrder(id) {
-            await axios.post(`http://localhost:5000/api/orders/${id}/status`)
-        }
-        order.map((items) => items.orderStatus !== "Completed" && items.orderStatus === "Canceled" ? updateOrder(items._id) : null)
+        // async function updateOrder(id) {
+        //     await axios.post(`http://localhost:5000/api/orders/${id}/status`)
+        // }
+        // order.map((items) => items.orderStatus !== "Completed" && items.orderStatus !== "Canceled" ? updateOrder(items._id) : null)
 
         if (order) { res.status(200).json(order) }
     } catch (error) {
@@ -184,7 +184,6 @@ const findByStatus = expressAsyncHandler(async (req, res, next) => {
     try {
         const { Status, id, IDorder, link, service } = req.body
 
-        console.log(IDorder)
 
         if (IDorder !== "" && IDorder !== undefined) {
             const order = await Order.find({ "orderItems.order": IDorder, user: id }).sort({})

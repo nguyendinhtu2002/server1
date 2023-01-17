@@ -11,7 +11,7 @@ const AddFundsRouter = require("./router/AddFunds.js")
 const WallerRouter = require("./router/Waller.js")
 const PublicRouter = require("./router/Public.js")
 const ImportData = require("./DataImport.js")
-
+const voucherRouter = require("./router/Voucher")
 dotenv.config();
 connectDatabase();
 const app = express();
@@ -25,10 +25,12 @@ app.use('/api/users', userRouter)
 app.use("/api/orders", orderRouter);
 app.use('/api/products', productRouter)
 app.use("/api/report", reportRouter)
+app.use("/api/voucher", voucherRouter)
 app.use("/api/cashFlow", CashFlowRouter)
 app.use("/api/addFunds", AddFundsRouter)
 app.use("/api/Waller", WallerRouter)
 app.use("/api/v2",PublicRouter)
+
 app.listen(process.env.PORT || 5000, () =>
     console.log(`Server started on ${process.env.PORT}`)
 );
