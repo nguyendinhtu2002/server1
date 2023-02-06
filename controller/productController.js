@@ -26,7 +26,7 @@ const getUpView = asyncHandler(async (req, res, next) => {
     }
 })
 // GET SINGLE PRODUCT
-const getProductById = asyncHandler(async (req, res) => {
+const getProductByService = asyncHandler(async (req, res) => {
 
     const product = await Product.findOne({ service: req.params.service });
 
@@ -37,11 +37,21 @@ const getProductById = asyncHandler(async (req, res) => {
         throw new Error("Product not Found");
     }
 })
-const addProduct = asyncHandler(async (req, res) => {
+const getProductById = asyncHandler(async (req, res) => {
+
+    const product = await Product.findOne({ _id: req.params._id });
+
+    if (product) {
+        res.json(product);
+    } else {
+        res.status(404).json({message:"Product not Found"});
+    }
+})
+const addProduct = asyncHandler(async (req, res,next) => {
     try {
         const { name, rate, min, max, category, platform, service, type } = req.body
         const products = await Product.find({ service })
-        if (products) {
+        if (products[0]) {
             return res.status(400).json({ message: "Product already exist " })
         }
         else {
@@ -52,21 +62,42 @@ const addProduct = asyncHandler(async (req, res) => {
                 max,
                 category,
                 platform,
+                service,
             });
             if (product) {
-                res.status(201).json({
+                return res.status(201).json({
                     message: "success",
                 });
             } else {
-                res.status(400).json({ message: "Invalid product Data" })
+                return res.status(400).json({ message: "Invalid product Data" })
 
             }
         }
     } catch (error) {
-
+        next(error)
     }
 })
 
+const updateProduct = asyncHandler(async (req, res) => {
+    const { name, rate, min, max, category, platform} = req.body;
 
+    const product = await Product.findByIdAndUpdate(req.params._id);
+    if(product){
+        product.name=name
+        product.rate = rate
+        product.min = min
+        product.max = max
+        product.category = category
+        product.platform = platform
+        const updateProduct = await product.save();
+        res.json({
+            updateProduct
+        })
+    }
+    if (!voucherCheck) {
+        res.status(400).json({ message: "Product not found" })
+    }
 
-module.exports = { getALL, getProductById, addProduct, getUpView } 
+})
+
+module.exports = { getALL, getProductById, addProduct, getUpView,updateProduct,getProductByService } 

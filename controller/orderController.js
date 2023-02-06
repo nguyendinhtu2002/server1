@@ -5,6 +5,8 @@ const cron = require('node-cron');
 //Create ORder
 const createOrder = expressAsyncHandler(async (req, res, next) => {
     try {
+        const orderUpView = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
+
         const {
             link,
             quanlity,
@@ -21,20 +23,27 @@ const createOrder = expressAsyncHandler(async (req, res, next) => {
 
         const params = new URLSearchParams()
 
-        params.append('key', process.env.KEY)
         params.append('action', 'add')
         params.append('service', service)
         params.append('link', link)
         params.append('quantity', quanlity)
         // params.append('search', search)
-        params.append('search', keyword)
+        // params.append('search', keyword)
 
         const config = {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
         };
-        const { data } = await axios.post(`https://upview.us/api/v2`, params, config);
+        var data = {};
+        if (orderUpView.includes(service)) {
+            params.append('key', process.env.KEY1)
+            data = await axios.post(`https://upview.us/api/v2`, params, config);
+        }
+        else {
+            params.append('key', process.env.KEY2)
+            data = await axios.post(`https://1dg.me/api/v2`, params, config);
+        }
         if (name && name.length === 0) {
             res.status(400);
             throw new Error("No order items");
@@ -43,7 +52,7 @@ const createOrder = expressAsyncHandler(async (req, res, next) => {
             if (data.error === undefined) {
                 const order = new Order({
                     orderItems: {
-                        order: data.order,
+                        order: data.data.order,
                         link,
                         quanlity,
                         service,
@@ -126,7 +135,7 @@ const updateStatus = expressAsyncHandler(async (req, res) => {
     // const {ic} = req.body;
     const order = await Order.findById(req.params._id);
     const params = new URLSearchParams()
-    params.append('key', process.env.KEY)
+    params.append('key', process.env.KEY1)
     params.append('action', 'status')
     params.append('order', order.orderItems[0].order)
     const config = {
@@ -134,7 +143,7 @@ const updateStatus = expressAsyncHandler(async (req, res) => {
             "Content-Type": "application/x-www-form-urlencoded",
         },
     }
-    const { data } = await axios.post('https://upview.us/api/v2', params, config)
+    const { data } = await axios.post('https://1dg.me/api/v2', params, config)
     if (order) {
         if (data.error === undefined) {
             order.orderStatus = data.status,
