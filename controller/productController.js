@@ -2,6 +2,8 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const Product = require("../modal/Product.js");
 const axios = require("axios");
+
+const { json } = require("express");
 const getALL = asyncHandler(async (req, res) => {
     // res.header("Access-Control-Allow-Origin", "azview.us");
     const products = await Product.find({})
@@ -44,10 +46,10 @@ const getProductById = asyncHandler(async (req, res) => {
     if (product) {
         res.json(product);
     } else {
-        res.status(404).json({message:"Product not Found"});
+        res.status(404).json({ message: "Product not Found" });
     }
 })
-const addProduct = asyncHandler(async (req, res,next) => {
+const addProduct = asyncHandler(async (req, res, next) => {
     try {
         const { name, rate, min, max, category, platform, service, type } = req.body
         const products = await Product.find({ service })
@@ -79,11 +81,11 @@ const addProduct = asyncHandler(async (req, res,next) => {
 })
 
 const updateProduct = asyncHandler(async (req, res) => {
-    const { name, rate, min, max, category, platform} = req.body;
+    const { name, rate, min, max, category, platform } = req.body;
 
     const product = await Product.findByIdAndUpdate(req.params._id);
-    if(product){
-        product.name=name
+    if (product) {
+        product.name = name
         product.rate = rate
         product.min = min
         product.max = max
@@ -100,4 +102,26 @@ const updateProduct = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { getALL, getProductById, addProduct, getUpView,updateProduct,getProductByService } 
+const findProduct = asyncHandler(async (req, res, next) => {
+    try {
+        const { type, service, name } = req.body;
+        var data = ''
+        if (type === "name") {
+            data = await Product.find({name})
+        }
+        if (type === "service") {
+            data = await Product.find({ service })
+        }
+        if (data) {
+            return res.json(data)
+        }
+        else {
+            return res.status(404).json({ message: "Product not Found" });
+
+        }
+    } catch (error) {
+        next(error);
+    }
+})
+
+module.exports = { getALL, getProductById, addProduct, getUpView, updateProduct, getProductByService, findProduct } 

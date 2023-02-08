@@ -27,6 +27,7 @@ const register = expressAsyncHandler(async (req, res, next) => {
             });
 
             if (user) {
+                console.log(req)
                 const Signin = await HistorySignIn.create({
                     user: user._id,
                     ipAddress: req.ip,
@@ -51,13 +52,13 @@ const register = expressAsyncHandler(async (req, res, next) => {
 
 const Login = expressAsyncHandler(async (req, res, next) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, ip } = req.body;
         const user = await User.findOne({ email });
         if (user && (await user.matchPassword(password))) {
 
             const Signin = await HistorySignIn.create({
                 user: user._id,
-                ipAddress: req.ip,
+                ipAddress: ip,
                 device: req.get('User-Agent'),
             });
             res.json({
