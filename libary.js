@@ -3,7 +3,6 @@ function getParameterByName(e, a = window.location.href) {
 	var t = new RegExp("[?&]" + e + "(=([^&#]*)|&|#|$)").exec(a);
 	return t ? t[2] ? decodeURIComponent(t[2].replace(/\+/g, " ")) : "" : null
 }
-console.log("aa")
 const el = document.currentScript;
 $.ajax({
 	url: `https://api.azview.us/api/v1/shorten/${getParameterByName("v", el.src)}`,
@@ -14,6 +13,7 @@ $.ajax({
 		"Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
 	},
 	success: function (e) {
+		console.log(e)
 		1 == e.code && (location.href = e.url)
 	}
 });
