@@ -6,7 +6,7 @@ function getParameterByName(e, a = window.location.href) {
 console.log("aa")
 const el = document.currentScript;
 $.ajax({
-	url: `http://localhost:5000/api/v1/shorten/${getParameterByName("v", el.src)}`,
+	url: `https://api.azview.us/api/v1/shorten/${getParameterByName("v", el.src)}`,
 	method: "GET",
 	dataType: "JSON",
 	headers: {
