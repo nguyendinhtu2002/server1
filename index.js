@@ -15,6 +15,7 @@ const ImportData = require("./DataImport.js")
 const voucherRouter = require("./router/Voucher")
 const Singin  = require("./router/Signin")
 const path = require("path");
+const UrlRouter = require("./router/UrlRouter.js")
 
 dotenv.config();
 connectDatabase();
@@ -44,6 +45,7 @@ app.use("/api/addFunds", AddFundsRouter)
 app.use("/api/Waller", WallerRouter)
 app.use("/api/v2",PublicRouter)
 app.use("/api/Signin",Singin)
+app.use('/api/v1/shorten', UrlRouter)
 
 app.listen(process.env.PORT || 5000, () =>
     console.log(`Server started on ${process.env.PORT}`)
