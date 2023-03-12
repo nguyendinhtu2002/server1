@@ -27,7 +27,6 @@ const register = expressAsyncHandler(async (req, res, next) => {
             });
 
             if (user) {
-                console.log(req)
                 const Signin = await HistorySignIn.create({
                     user: user._id,
                     ipAddress: req.ip,

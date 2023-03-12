@@ -135,7 +135,7 @@ const updateStatus = expressAsyncHandler(async (req, res) => {
     // const {ic} = req.body;
     const order = await Order.findById(req.params._id);
     const params = new URLSearchParams()
-    params.append('key', process.env.KEY1)
+    params.append('key', process.env.KEY2)
     params.append('action', 'status')
     params.append('order', order.orderItems[0].order)
     const config = {
